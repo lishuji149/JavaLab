@@ -1,55 +1,60 @@
+import Animals.classis.Xenusia;
+import Animals.familia.Peripatidae;
+import Animals.genus.Facivermis;
+import Animals.phylum.Onychophora;
+import Animals.species.Facivermis_carbotubulus;
+import Animals.species.Luolishania_lenisambulatrix;
+import Animals.species.Peripatus_collinsovermis;
+
 import java.util.LinkedList;
 
-import Animals.classis.Arachnids;
-import Animals.phylum.Chordates;
-import Animals.species.Euscorpius_alpha;
-import Animals.species.Missulena_hoggi;
-
-public class Queue<T> {
-    private final LinkedList<T> data = new LinkedList<>();
+@SuppressWarnings("all")
+public class Queue<T extends Onychophora> {
     private final int maxSize;
+    private final LinkedList<T> data = new LinkedList<>();
     private int currentSize = 0;
 
-    public Queue(int maxSize) {
-        this.maxSize = maxSize;
-    }
-
-    public static Queue<Arachnids> produce(Queue<Chordates> source) {
+    public static Queue<Xenusia> produce(Queue<Onychophora> source) {
         int size = source.currentSize;
-        Queue<Arachnids> arachnids = new Queue<>(size);
+        Queue<Xenusia> xenusia = new Queue<>(size);
         for (int i = 0; i < size; i++) {
-            Chordates curr = source.get();
-            if (Arachnids.class != curr.getClass() && Arachnids.class.isAssignableFrom(curr.getClass())) {
-                arachnids.add((Arachnids) curr);
+            Onychophora curr = source.get();
+            if (Xenusia.class.isAssignableFrom(curr.getClass())) {
+                xenusia.add((Xenusia) curr);
             }
         }
-        return arachnids;
+        return xenusia;
     }
 
-    public static LinkedList<Queue<Arachnids>> consume(Queue<Arachnids> source) {
+    public static LinkedList<Queue<Xenusia>> consume(Queue<Xenusia> source) {
         int size = source.currentSize;
-        Queue<Arachnids> euscorpius = new Queue<>(size);
-        Queue<Arachnids> missulena = new Queue<>(size);
-        LinkedList<Queue<Arachnids>> parents = new LinkedList<>();
+        Queue<Xenusia> luolishania = new Queue<>(size);
+        Queue<Xenusia> peripatus = new Queue<>(size);
+        LinkedList<Queue<Xenusia>> parents = new LinkedList<>();
         for (int i = 0; i < size; i++) {
-            Arachnids curr = source.get();
-            if (Euscorpius_alpha.class != curr.getClass() && curr.getClass().isAssignableFrom(Euscorpius_alpha.class)) {
-                euscorpius.add(curr);
+            Xenusia curr = source.get();
+            if (curr.getClass().isAssignableFrom(Luolishania_lenisambulatrix.class)) {
+                luolishania.add(curr);
             }
-            if (Missulena_hoggi.class != curr.getClass() && curr.getClass().isAssignableFrom(Missulena_hoggi.class)) {
-                missulena.add(curr);
+            if (curr.getClass().isAssignableFrom(Peripatus_collinsovermis.class)) {
+                peripatus.add(curr);
             }
         }
-        parents.addLast(euscorpius);
-        parents.addLast(missulena);
+        parents.addLast(luolishania);
+        parents.addLast(peripatus);
         return parents;
+    }
+
+    public Queue(int maxSize) {
+
+        this.maxSize = maxSize;
     }
 
     public void add(T element) throws StackOverflowError {
         if (currentSize >= maxSize) {
             throw new StackOverflowError("The Queue is full!");
         }
-        data.addLast(element);
+        data.add(element);
         currentSize++;
     }
 
@@ -64,5 +69,4 @@ public class Queue<T> {
     public int getCurrentSize() {
         return currentSize;
     }
-
 }

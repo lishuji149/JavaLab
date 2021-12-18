@@ -1,52 +1,47 @@
+import Animals.classis.Udeonychophora;
+import Animals.classis.Xenusia;
+import Animals.familia.Luolishaniidae;
+import Animals.familia.Peripatidae;
+import Animals.familia.Peripatopsidae;
+import Animals.genus.Facivermis;
+import Animals.genus.Luolishania;
+import Animals.phylum.Onychophora;
+import Animals.species.*;
+
 import java.util.LinkedList;
-
-import Animals.classis.Arachnids;
-import Animals.classis.Birds;
-import Animals.familia.Euscorpiidae_Laurie;
-import Animals.genus.Columba;
-import Animals.genus.Missulena;
-import Animals.ordo.Scorpions;
-import Animals.ordo.Spiders;
-import Animals.phylum.Chordates;
-import Animals.species.Columba_albinucha;
-import Animals.species.Euscorpius_alpha;
-import Animals.species.Missulena_bradleyi;
-
+@SuppressWarnings("all")
 public class Main {
-
     public static void main(String[] args) {
-        Queue<Chordates> animals = new Queue<>(20);
-        animals.add(new Birds());
-        animals.add(new Euscorpius_alpha());
-        animals.add(new Missulena_bradleyi());
-        animals.add(new Columba_albinucha());
-        animals.add(new Spiders());
-        animals.add(new Scorpions());
-        animals.add(new Columba());
-        animals.add(new Missulena());
-        animals.add(new Euscorpiidae_Laurie());
-        animals.add(new Arachnids());
+        Queue<Onychophora>animals=new Queue<>(20);
+        animals.add(new Xenusia());
+        animals.add(new Udeonychophora());
+        animals.add(new Luolishaniidae());
+        animals.add(new Peripatidae());
+        animals.add(new Peripatopsidae());
+        animals.add(new Facivermis());
+        animals.add(new Luolishania());
+        animals.add(new Facivermis_carbotubulus());
+        animals.add(new Facivermis_thanahita());
+        animals.add(new Peripatus_acinocricus());
+        animals.add(new Peripatus_collinsovermis());
+        animals.add(new Luolishania_lenisambulatrix());
+        animals.add(new Luolishania_quadratapora());
 
-        System.out.println("First breakpoint");
+        Queue<Xenusia>xenusia=Queue.produce(animals);
 
-        Queue<Arachnids> arachnids = Queue.produce(animals);
+        LinkedList<Queue<Xenusia>> parents = Queue.consume(xenusia);
 
-        System.out.println("Second breakpoint");
-
-        LinkedList<Queue<Arachnids>> parents = Queue.consume(arachnids);
-
-        Queue<Arachnids> temp = parents.getFirst();
+        Queue<Xenusia> temp = parents.getFirst();
         int size = temp.getCurrentSize();
-        System.out.println("\nArachnids, which are parents of Euscorpius_alpha:");
+        System.out.println("\nArachnids, which are parents of Luolishania_lenisambulatrix:");
         for (int i = 0; i < size; i++) {
             System.out.println(temp.get().getClass().getSimpleName());
         }
         temp = parents.getLast();
         size = temp.getCurrentSize();
-        System.out.println("\nArachnids, which are parents of Missulena_hoggi:");
+        System.out.println("\nArachnids, which are parents of Peripatus_collinsovermis:");
         for (int i = 0; i < size; i++) {
             System.out.println(temp.get().getClass().getSimpleName());
         }
     }
-
 }
